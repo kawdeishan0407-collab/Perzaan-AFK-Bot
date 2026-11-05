@@ -2,10 +2,10 @@ const mineflayer = require('mineflayer')
 
 function startBot() {
   const bot = mineflayer.createBot({
-    host: 'APNE-SERVER-KA-IP-YAHA-DALO',
-    port: 25565,
+    host: 'DreaneMc.aternos.me',
+    port: 21530,
     username: 'PerzaanBot',
-    version: '1.20.1',
+    version: '1.20.4',
     auth: 'offline'
   })
 
@@ -18,7 +18,7 @@ function startBot() {
         bot.setControlState('jump', true)
         setTimeout(() => bot.setControlState('jump', false), 500)
         bot.look(Math.random() * Math.PI * 2, 0)
-        console.log('AFK Jump kiya')
+        console.log('AFK Jump')
       }
     }, 30000)
   })
