@@ -5,7 +5,7 @@ function startBot() {
     host: 'DreamMc.aternos.me',
     port: 21530,
     username: 'PerzaanBot',
-    version: '1.20.4',
+    version: '1.21.4',
     auth: 'offline'
   })
 
