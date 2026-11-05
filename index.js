@@ -1,14 +1,15 @@
 const mineflayer = require('mineflayer')
 const http = require('http')
-http.createServer((req, res) => { res.writeHead(200); res.end('PerzaanBot is online!') }).listen(process.env.PORT || 10000)
 
-
+http.createServer((req, res) => {
+  res.writeHead(200)
+  res.end('PerzaanBot is online!')
+}).listen(process.env.PORT || 10000)
 
 function startBot() {
   console.log('Starting PerzaanBot...')
-  
   const bot = mineflayer.createBot({
-    host: process.env.MC_HOST || 'DreameMc.aternos.me',
+    host: process.env.MC_HOST || 'DreamMC.aternos.me',
     port: parseInt(process.env.MC_PORT || '21530'),
     username: process.env.MC_USERNAME || 'PerzaanBot',
     version: process.env.MC_VERSION || '1.21.4',
@@ -19,8 +20,6 @@ function startBot() {
   bot.on('spawn', () => {
     console.log('Bot joined and spawned! SUCCESS')
     bot.chat('PerzaanBot is online!')
-    
-    // Anti-AFK - har 30 sec me jump karega taaki kick na ho
     setInterval(() => {
       if (bot.entity) {
         bot.setControlState('jump', true)
@@ -39,7 +38,7 @@ function startBot() {
   })
 
   bot.on('end', () => {
-    console.log('Bot disconnected, retry in 5s...')
+    console.log('Bot disconnected, retry in 5s..')
     setTimeout(startBot, 5000)
   })
 
@@ -49,5 +48,3 @@ function startBot() {
 }
 
 startBot()
-  
-  
