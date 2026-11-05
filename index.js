@@ -2,7 +2,7 @@ const mineflayer = require('mineflayer')
 
 function startBot() {
   const bot = mineflayer.createBot({
-    host: 'DreaneMc.aternos.me',
+    host: 'DreamMc.aternos.me',
     port: 21530,
     username: 'PerzaanBot',
     version: '1.20.4',
@@ -10,9 +10,8 @@ function startBot() {
   })
 
   bot.on('spawn', () => {
-    console.log('Bot joined and spawned! SUCCESS')
+    console.log('Bot JOIN HO GAYA! SUCCESS')
     bot.chat('PerzaanBot is online!')
-    
     setInterval(() => {
       if (bot.entity) {
         bot.setControlState('jump', true)
@@ -29,7 +28,7 @@ function startBot() {
   })
 
   bot.on('kicked', (reason) => {
-    console.log('Bot kicked:', reason)
+    console.log('Bot kicked:', JSON.stringify(reason))
   })
 
   bot.on('end', () => {
