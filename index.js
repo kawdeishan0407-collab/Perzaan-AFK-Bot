@@ -1,3 +1,7 @@
+const express = require('express');
+const app = express();
+app.listen(process.env.PORT || 3000, () => console.log('Web chal raha hai'));
+
 const mineflayer = require('mineflayer')
 
 function startBot() {
@@ -10,15 +14,12 @@ function startBot() {
   })
 
   bot.on('spawn', () => {
-    console.log('Bot JOIN HO GAYA! SUCCESS')
-    bot.chat('PerzaanBot is online!')
+    console.log('Bot JOIN HO GAYA')
     setInterval(() => {
-      if (bot.entity) {
-        bot.setControlState('jump', true)
-        setTimeout(() => bot.setControlState('jump', false), 500)
-        bot.look(Math.random() * Math.PI * 2, 0)
-        console.log('AFK Jump')
-      }
+      bot.setControlState('jump', true)
+      setTimeout(() => bot.setControlState('jump', false), 500)
+      bot.look(Math.random() * Math.PI * 2, 0)
+      console.log('AFK Jump')
     }, 30000)
   })
 
@@ -32,7 +33,7 @@ function startBot() {
   })
 
   bot.on('end', () => {
-    console.log('Bot disconnected, retry in 5s')
+    console.log('Bot disconnected, retry in 5 sec...')
     setTimeout(startBot, 5000)
   })
 
