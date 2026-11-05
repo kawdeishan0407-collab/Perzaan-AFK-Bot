@@ -2,7 +2,7 @@ const mineflayer = require('mineflayer')
 
 function startBot() {
   const bot = mineflayer.createBot({
-    host: 'DreamMc.aternos.me',
+    host: 'DreameMc.aternos.me',
     port: 21530,
     username: 'PerzaanBot',
     version: '1.21.4',
