@@ -1,4 +1,8 @@
 const mineflayer = require('mineflayer')
+const http = require('http')
+http.createServer((req, res) => { res.writeHead(200); res.end('PerzaanBot is online!') }).listen(process.env.PORT || 10000)
+
+
 
 function startBot() {
   console.log('Starting PerzaanBot...')
