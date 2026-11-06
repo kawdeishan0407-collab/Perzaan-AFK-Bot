@@ -2,33 +2,49 @@ const mineflayer = require('mineflayer');
 const express = require('express');
 const app = express();
 app.get('/', (req, res) => res.send('Bot is Online'));
-app.listen(process.env.port ||10000, () => console.log('Web server running'));
+app.listen(process.env.PORT || 10000, () => console.log('Web server running'));
+
+let bot;
+let afkInterval;
 
 function startBot() {
-  const bot = mineflayer.createBot({
+  bot = mineflayer.createBot({
     host: 'DreameMc.aternos.me',
     port: 21530,
     username: 'PerzaanBot_123',
     auth: 'offline',
     version: '1.21.4',
-    keepAlive: true,
-    checkTimeoutInterval: 60 * 1000
+    keepAlive: true
   });
 
   bot.on('spawn', () => {
-    console.log('Bot JOIN HO GAYA! Game me aa gaya');
+    console.log('Bot JOIN HO GAYA!');
+    // Har 20 sec me hilega, jump karega - AFK kick nahi aayega
+    clearInterval(afkInterval);
+    afkInterval = setInterval(() => {
+      try {
+        bot.setControlState('jump', true);
+        setTimeout(() => bot.setControlState('jump', false), 500);
+        bot.swingArm('right');
+        bot.look(Math.random() * Math.PI * 2, 0, true);
+        console.log('AFK se bachne ke liye hila');
+      } catch (e) {}
+    }, 20000);
   });
 
   bot.on('kicked', (reason) => {
-    console.log('Bot ko KICK kiya: ' + reason);
+    console.log('KICK hua: ' + reason + ' | 10 sec me wapas join karega');
+    clearInterval(afkInterval);
+    setTimeout(startBot, 10000);
   });
 
   bot.on('error', (err) => {
-    console.log('Error aaya: ' + err);
+    console.log('Error: ' + err);
   });
 
   bot.on('end', () => {
-    console.log('Bot disconnect hua, 10 sec me dobara try karega');
+    console.log('Disconnect hua, 10 sec me wapas');
+    clearInterval(afkInterval);
     setTimeout(startBot, 10000);
   });
 }
