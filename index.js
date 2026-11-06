@@ -2,7 +2,7 @@ const mineflayer = require('mineflayer');
 const express = require('express');
 const app = express();
 app.get('/', (req, res) => res.send('Bot is Online'));
-app.listen(10000, () => console.log('Web server running'));
+app.listen(process.env.port ||10000, () => console.log('Web server running'));
 
 function startBot() {
   const bot = mineflayer.createBot({
