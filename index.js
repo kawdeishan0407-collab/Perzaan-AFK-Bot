@@ -1,50 +1,36 @@
+const mineflayer = require('mineflayer');
 const express = require('express');
 const app = express();
-app.get('/', (req, res) => res.send('Bot Alive Hai - 24/7'));
-app.listen(process.env.PORT || 3000, () => console.log('Web chal raha hai'));
-
-const mineflayer = require('mineflayer')
+app.get('/', (req, res) => res.send('Bot is Online'));
+app.listen(10000, () => console.log('Web server running'));
 
 function startBot() {
   const bot = mineflayer.createBot({
     host: 'DreameMc.aternos.me',
     port: 21530,
     username: 'PerzaanBot_123',
+    auth: 'offline',
     version: '1.21.4',
-    auth: 'offline'
-  })
+    keepAlive: true,
+    checkTimeoutInterval: 60 * 1000
+  });
 
   bot.on('spawn', () => {
-    console.log('Bot JOIN HO GAYA')
-
-    // Har 10 sec me jump + idhar udhar dekhna, taaki Aternos AFK samajh ke kick na kare
-    setInterval(() => {
-      bot.setControlState('jump', true)
-      setTimeout(() => bot.setControlState('jump', false), 500)
-      bot.look(Math.random() * Math.PI * 2, 0)
-      console.log('AFK Jump - Bot Alive')
-    }, 10000)
-  })
-
-  bot.on('chat', (username, message) => {
-    if (username === bot.username) return
-    console.log(`${username}: ${message}`)
-  })
+    console.log('Bot JOIN HO GAYA! Game me aa gaya');
+  });
 
   bot.on('kicked', (reason) => {
-    console.log('Bot kicked:', JSON.stringify(reason))
-  })
+    console.log('Bot ko KICK kiya: ' + reason);
+  });
 
   bot.on('error', (err) => {
-    console.log('Bot error:', err.message)
-  })
+    console.log('Error aaya: ' + err);
+  });
 
-  // Agar bot disconnect / leave ho jaye to 5 sec me khud wapas aayega
   bot.on('end', () => {
-    console.log('Bot disconnected, 5 sec me wapas aa raha hai...')
-    setTimeout(startBot, 5000)
-  })
+    console.log('Bot disconnect hua, 10 sec me dobara try karega');
+    setTimeout(startBot, 10000);
+  });
 }
-console.log('Bot connect kar raha hai DreameMc.aternos.me pe...')
 
-startBot()
+startBot();
