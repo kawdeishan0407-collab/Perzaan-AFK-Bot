@@ -45,5 +45,6 @@ function startBot() {
     setTimeout(startBot, 5000)
   })
 }
+console.log('Bot connect kar raha hai DreameMc.aternos.me pe...')
 
 startBot()
