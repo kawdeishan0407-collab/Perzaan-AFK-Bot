@@ -11,7 +11,7 @@ function startBot() {
   bot = mineflayer.createBot({
     host: 'DreameMc.aternos.me',
     port: 21530,
-    username: 'PerzaanBot_123',
+    username: 'Perzaan-Bot',
     auth: 'offline',
     version: '1.21.4',
     keepAlive: true
